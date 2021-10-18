@@ -1,0 +1,84 @@
+def kotlin_version = "1.4.31"
+def navigation_fragment = "2.3.4"
+def fragment_version = "1.3.2"
+def lifecycle_version = "2.3.1"
+def retrofit_version = "2.9.0"
+def hilt_version = "2.36"
+def room_version = "2.3.0"
+def coil_version = "1.2.1"
+def sdp_version= "1.0.6"
+def junit_version = "4.13.2"
+def jacoco_version="0.8.6"
+def test_core_version = "1.3.0"
+def mockito_version = "3.7.7"
+def junit_ext_version = "1.1.2"
+def espresso_version = "3.3.0"
+def desugar_lib_version = "1.1.5"
+def hilt_compiler_version = "2.36"
+def logger_version = "4.9.1"
+def paging_version = "3.0.0-alpha04"
+def lottie_version ="3.7.0"
+
+
+ext {
+    libs = [
+            "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
+            'androidx.core:core-ktx:1.3.2',
+            'androidx.appcompat:appcompat:1.2.0',
+            'com.google.android.material:material:1.3.0',
+            'androidx.constraintlayout:constraintlayout:2.0.4',
+            'androidx.legacy:legacy-support-v4:1.0.0',
+            "androidx.navigation:navigation-fragment-ktx:$navigation_fragment",
+            "androidx.navigation:navigation-ui-ktx:$navigation_fragment",
+            "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version",
+            "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version",
+            "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version",
+            "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version",
+            "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            "com.squareup.retrofit2:retrofit:$retrofit_version",
+            "com.google.dagger:hilt-android:$hilt_version",
+            "androidx.paging:paging-runtime:$paging_version",
+            "androidx.paging:paging-runtime-ktx:$paging_version",
+
+
+            //coil
+            "io.coil-kt:coil:$coil_version",
+
+            //dimens
+            "com.intuit.sdp:sdp-android:$sdp_version",
+
+            "com.airbnb.android:lottie:$lottie_version",
+            //Persistence
+            "androidx.room:room-runtime:$room_version",
+            "androidx.room:room-ktx:$room_version",
+
+            //OkHttp
+            "com.squareup.okhttp3:logging-interceptor:$logger_version"
+    ]
+    testLibraries =[
+            //testImplementation
+            "junit:junit:$junit_version",
+            //For code coverage
+            "org.jacoco:org.jacoco.agent:$jacoco_version",
+            //Robo-electric
+            "androidx.test:core:$test_core_version",
+            // Mockito framework
+            "org.mockito:mockito-core:$mockito_version",
+    ]
+    androidTestLibraries =[
+            "androidx.test.ext:junit:$junit_ext_version",
+            "androidx.test.espresso:espresso-core:$espresso_version"
+    ]
+
+    debugLibraries =[
+            "androidx.fragment:fragment-testing:$fragment_version"
+    ]
+    coreLibDesugaring =[
+            "com.android.tools:desugar_jdk_libs:$desugar_lib_version"
+    ]
+    kaptLibs =[
+             "com.google.dagger:hilt-compiler:$hilt_compiler_version",
+             "androidx.room:room-compiler:$room_version"
+    ]
+
+}
