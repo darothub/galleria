@@ -1,0 +1,9 @@
+#include <jni.h>
+#include <string>
+extern "C"
+JNIEXPORT jstring JNICALL
+
+Java_com_darothub_galleria_Keys_apiKey(JNIEnv *env, jobject thiz) {
+    std::string api_key = "v2/Z2tSY0xkWXNPR2VBZERPQ3ZQM3Rxa3lBOEdjQkxBcWEvMzEzMzU3MDE2L2N1c3RvbWVyLzQvWHVxTGFUanpXSnNGTkdWekt3NEk2RTBLdl9rZjFuR1ZMT1hPR0lYeXdLM1R4ZEU4TkhYS01FRkRZRm91MzBqMVRLT0c5RzE2UzU2bEg4ZEw0TS1id1R4WFRiUVhJT2ZHaWQtRVl6eHR1WEViUUNaOWdoUjFfeGh3WldHVGVFcF8taldnUjVRdUE5SUFZUGYyai1lUjhQN09JOXdUNGY1M3BXbFozcVdxbXdCQURHQzc1TE15bVNEWEpudlRzSmwxSDllaGpLNTFZcC16QjhtTC1wdG53dy95UDhvd1ZINFNtRTBTbjYyWXNORkd3";
+    return env->NewStringUTF(api_key.c_str());
+}
