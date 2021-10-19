@@ -1,5 +1,6 @@
 package com.darothub.galleria.di
 
+import com.darothub.galleria.Keys
 import com.darothub.galleria.api.ShutterImageService
 import com.darothub.galleria.utils.Constant
 import com.google.gson.GsonBuilder
@@ -13,7 +14,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-const val token = "v2/Z2tSY0xkWXNPR2VBZERPQ3ZQM3Rxa3lBOEdjQkxBcWEvMzEzMzU3MDE2L2N1c3RvbWVyLzQvWHVxTGFUanpXSnNGTkdWekt3NEk2RTBLdl9rZjFuR1ZMT1hPR0lYeXdLM1R4ZEU4TkhYS01FRkRZRm91MzBqMVRLT0c5RzE2UzU2bEg4ZEw0TS1id1R4WFRiUVhJT2ZHaWQtRVl6eHR1WEViUUNaOWdoUjFfeGh3WldHVGVFcF8taldnUjVRdUE5SUFZUGYyai1lUjhQN09JOXdUNGY1M3BXbFozcVdxbXdCQURHQzc1TE15bVNEWEpudlRzSmwxSDllaGpLNTFZcC16QjhtTC1wdG53dy95UDhvd1ZINFNtRTBTbjYyWXNORkd3"
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkServiceModule {
@@ -42,7 +42,7 @@ object NetworkServiceModule {
     fun provideOkHttpInstance(loggingInterceptor: HttpLoggingInterceptor): okhttp3.OkHttpClient {
         return okhttp3.OkHttpClient.Builder()
             .addInterceptor{
-                val header = "Bearer $token"
+                val header = "Bearer ${Keys.token()}"
                 var req = it.request()
                 req = req.newBuilder()
                     .cacheControl(CacheControl.FORCE_NETWORK)

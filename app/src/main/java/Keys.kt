@@ -1,3 +1,4 @@
+package com.darothub.galleria
 object Keys {
 
     init {

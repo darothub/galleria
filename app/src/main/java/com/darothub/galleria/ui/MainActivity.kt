@@ -1,6 +1,5 @@
 package com.darothub.galleria.ui
 
-import Keys
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.darothub.galleria.Keys
 import com.darothub.galleria.R
 import com.darothub.galleria.data.ImageViewModel
 import com.darothub.galleria.databinding.ActivityMainBinding
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.addItemDecoration(decoration)
 
         initAdapter(true)
-        Log.i("Main", Keys.toString())
+        Log.i("Main", Keys.token())
         lifecycleScope.launch {
             viewModel.dataSource.collectLatest {
                 adapter.submitData(it)
