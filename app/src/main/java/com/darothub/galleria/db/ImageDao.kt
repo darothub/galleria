@@ -11,11 +11,12 @@ import com.darothub.galleria.model.ImageDetails
 @Dao
 interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(repos: List<ImageDetails>)
+    suspend fun insertAll(images: List<ImageDetails>)
 
-    @Query("SELECT * FROM images")
-    fun getImages(): PagingSource<Int, ImageDetails>
+    @Query("SELECT * FROM images WHERE " +
+            "url LIKE :queryString OR description LIKE :queryString ")
+    fun getImages(queryString: String): PagingSource<Int, ImageDetails>
 
     @Query("DELETE FROM images")
-    suspend fun clear()
+    suspend fun clearImages()
 }

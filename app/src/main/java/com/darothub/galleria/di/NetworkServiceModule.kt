@@ -18,7 +18,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkServiceModule {
 
-    val baseurl = Constant.BASE_URL
 
     @Singleton
     @Provides
@@ -45,11 +44,10 @@ object NetworkServiceModule {
                 val header = "Bearer ${Keys.token()}"
                 var req = it.request()
                 req = req.newBuilder()
-                    .cacheControl(CacheControl.FORCE_NETWORK)
                     .addHeader("Authorization", header)
                     .build()
-                val res = it.proceed(req)
-                res
+                it.proceed(req)
+
             }
             .addInterceptor(loggingInterceptor)
             .connectTimeout(5, TimeUnit.MINUTES)
@@ -68,7 +66,7 @@ object NetworkServiceModule {
         client: okhttp3.OkHttpClient
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(baseurl)
+            .baseUrl(Constant.BASE_URL)
             .addConverterFactory(gson)
             .client(client)
             .build()

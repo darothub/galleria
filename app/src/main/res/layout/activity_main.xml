@@ -7,11 +7,32 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:elevation="@dimen/_20sdp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+       >
+        <EditText
+            android:id="@+id/search_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:inputType="textNoSuggestions"
+            android:selectAllOnFocus="true"
+            tools:text="Android"/>
+    </com.google.android.material.textfield.TextInputLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scrollbars="vertical"
+        android:layout_marginTop="80dp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
         app:layoutManager="LinearLayoutManager" />
     <ProgressBar
         android:id="@+id/progressBar"
@@ -27,5 +48,13 @@
         android:layout_gravity="center"
         android:layout_marginTop="60dp"
         android:text="@string/retry" />
+    <TextView android:id="@+id/emptyList"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/no_results"
+        android:textSize="@dimen/_20sdp"
+        android:visibility="gone"
+        android:layout_gravity="center"/>
 
 </FrameLayout>

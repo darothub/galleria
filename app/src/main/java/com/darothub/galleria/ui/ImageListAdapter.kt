@@ -5,29 +5,33 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.darothub.galleria.data.UiModel
 import com.darothub.galleria.model.ImageDetails
 
-class ImageListAdapter : PagingDataAdapter<ImageDetails, RecyclerView.ViewHolder>(MODEL_COMPARATOR) {
+class ImageListAdapter : PagingDataAdapter<UiModel.ImageItem, RecyclerView.ViewHolder>(MODEL_COMPARATOR) {
     var list = ArrayList<ImageDetails>()
+
     companion object {
-        private val MODEL_COMPARATOR = object : DiffUtil.ItemCallback<ImageDetails>() {
-            override fun areItemsTheSame(oldItem: ImageDetails, newItem: ImageDetails): Boolean {
-                return (oldItem.url == newItem.url)
+        private val MODEL_COMPARATOR = object : DiffUtil.ItemCallback<UiModel.ImageItem>() {
+            override fun areItemsTheSame(oldItem: UiModel.ImageItem, newItem: UiModel.ImageItem): Boolean {
+                return (
+                        oldItem.image.url == newItem.image.url)
             }
 
-            override fun areContentsTheSame(oldItem: ImageDetails, newItem: ImageDetails): Boolean = oldItem == newItem
+            override fun areContentsTheSame(oldItem: UiModel.ImageItem, newItem: UiModel.ImageItem): Boolean =
+                oldItem == newItem
         }
     }
-    @SuppressLint("NotifyDataSetChanged")
-    fun setData(newList: List<ImageDetails>) {
-        list.clear()
-        list.addAll(newList)
-        notifyDataSetChanged()
-    }
+
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val data = getItem(position)
-        (holder as ImageListViewHolder).bindTo(data)
+        val uiModel = getItem(position)
+
+        uiModel.let {
+            when (uiModel) {
+                is UiModel.ImageItem -> (holder as ImageListViewHolder).bindTo(uiModel.image)
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

@@ -1,10 +1,15 @@
 package com.darothub.galleria.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ApiResponse (
     val page: Long,
+    @SerializedName("per_page")
     val perPage: Long,
+    @SerializedName("total_count")
     val totalCount: Long,
-    val searchID: String,
+    @SerializedName("search_id")
+    val searchId: String,
     val data: List<MediaData>,
     val spellcheckInfo: SpellcheckInfo
 )
@@ -21,10 +26,15 @@ data class MediaData (
 
 data class Assets (
     val preview: ThumbDetails,
+    @SerializedName("small_thumb")
     val smallThumb: ThumbDetails,
+    @SerializedName("large_thumb")
     val largeThumb: ThumbDetails,
+    @SerializedName("huge_thumb")
     val hugeThumb: ThumbDetails,
+    @SerializedName("preview_1000")
     val preview1000: ThumbDetails,
+    @SerializedName("preview_1500")
     val preview1500: ThumbDetails
 )
 

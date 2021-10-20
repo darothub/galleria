@@ -9,7 +9,7 @@ import com.darothub.galleria.model.ImageDetails
 import kotlinx.coroutines.flow.Flow
 
 interface ImageDetailsRepository {
-    fun getImageStream(query: String="empty"): Flow<PagingData<ImageDetails>>
+    fun getImageStream(query: String): Flow<PagingData<ImageDetails>>
 }
 
 class ImageDetailsRepositoryImpl(
@@ -18,13 +18,13 @@ class ImageDetailsRepositoryImpl(
 ) :
     ImageDetailsRepository {
     override fun getImageStream(query: String): Flow<PagingData<ImageDetails>> {
-//        val dbQuery = "%${query.replace(' ', '%')}%"
-        val pagingSourceFactory = { database.imageDao().getImages() }
+        val dbQuery = "%${query.replace(' ', '%')}%"
+        val pagingSourceFactory = { database.imageDao().getImages(dbQuery) }
         return Pager(
             config = PagingConfig(
                 pageSize = PER_PAGE,
-                maxSize = PER_PAGE + (PER_PAGE * 2),
-                enablePlaceholders = false
+                enablePlaceholders = false,
+                maxSize = PER_PAGE + 100 * 2
             ),
             remoteMediator = ImageRemoteMediator(
                 query,
