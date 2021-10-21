@@ -1,4 +1,5 @@
 ## Assignment Task
+
 ### Problem statement
 - User wants to be able to search for images
 - User wants to be able to see images from search
@@ -17,6 +18,7 @@
 - Smooth scrolling
 - Simple UI for great UX
 - Security
+- Testing
 
 ### Limitation
 - While search works well, its behaviour is yet to be fully tested
@@ -33,5 +35,6 @@
 - Coil
 - Material design
 
+![Shot](https://user-images.githubusercontent.com/21008156/138369448-ff8da4b3-fd3a-4485-8d75-05096461b3ca.png)
 
 ##### NB: Extensively, for a growing project, modularisation by feature would be the best approach
