@@ -45,7 +45,6 @@ ext {
             //dimens
             "com.intuit.sdp:sdp-android:$sdp_version",
 
-            "com.airbnb.android:lottie:$lottie_version",
             //Persistence
             "androidx.room:room-runtime:$room_version",
             "androidx.room:room-ktx:$room_version",
