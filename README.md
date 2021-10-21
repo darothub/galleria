@@ -35,6 +35,6 @@
 - Coil
 - Material design
 
-![Shot](https://user-images.githubusercontent.com/21008156/138369448-ff8da4b3-fd3a-4485-8d75-05096461b3ca.png)
+<img src="https://user-images.githubusercontent.com/21008156/138369448-ff8da4b3-fd3a-4485-8d75-05096461b3ca.png" width="300" />
 
 ##### NB: Extensively, for a growing project, modularisation by feature would be the best approach
