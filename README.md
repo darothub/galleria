@@ -16,6 +16,7 @@
 - Local caching
 - Smooth scrolling
 - Simple UI for great UX
+- Security
 
 ### Limitation
 - While search works well, its behaviour is yet to be fully tested
