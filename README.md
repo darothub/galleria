@@ -25,7 +25,7 @@
 ### Design Architecture
 - MVVM
 
-## External Libraries
+### External Libraries
 - Jetpack libraries
 - Retrofit
 - OkHttp
@@ -34,4 +34,4 @@
 - Material design
 
 
-- NB: Extensively, for a growing project, modularisation by feature would be the best approach
+##### NB: Extensively, for a growing project, modularisation by feature would be the best approach
