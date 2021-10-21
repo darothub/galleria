@@ -1,24 +1,22 @@
-package com.darothub.galleria.data
+package com.darothub.galleria.repository
 
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.darothub.galleria.api.ShutterImageService
+import com.darothub.galleria.data.ImageDetailsRepository
+import com.darothub.galleria.data.ImageRemoteMediator
+import com.darothub.galleria.data.PER_PAGE
 import com.darothub.galleria.db.ImageDatabase
 import com.darothub.galleria.model.ImageDetails
 import kotlinx.coroutines.flow.Flow
 
-interface ImageDetailsRepository {
-    fun getImageStream(query: String): Flow<PagingData<ImageDetails>>
-}
-interface ImageDetailsRepositoryImplForTest{
-    fun getImageForTesting(queryString: String): List<ImageDetails>
-}
-
-class ImageDetailsRepositoryImpl(
-    private val service: ShutterImageService,
+open class FakeRepository(
+    private val service: FakeShutterService,
     private val database: ImageDatabase
-) : ImageDetailsRepository {
+):ImageDetailsRepository {
+    @ExperimentalPagingApi
     override fun getImageStream(query: String): Flow<PagingData<ImageDetails>> {
         val dbQuery = "%${query.replace(' ', '%')}%"
         val pagingSourceFactory = { database.imageDao().getImages(dbQuery) }
@@ -28,7 +26,7 @@ class ImageDetailsRepositoryImpl(
                 enablePlaceholders = false,
                 maxSize = PER_PAGE + 100 * 2
             ),
-            remoteMediator = ImageRemoteMediator(
+            remoteMediator = FakeRemoteMediator(
                 query,
                 service,
                 database
@@ -36,6 +34,4 @@ class ImageDetailsRepositoryImpl(
             pagingSourceFactory = pagingSourceFactory
         ).flow
     }
-
-
 }

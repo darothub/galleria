@@ -1,5 +1,6 @@
 package com.darothub.galleria.db
 
+import androidx.annotation.VisibleForTesting
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -19,4 +20,9 @@ interface ImageDao {
 
     @Query("DELETE FROM images")
     suspend fun clearImages()
+
+    @VisibleForTesting
+    @Query("SELECT * FROM images WHERE " +
+            "url LIKE :queryString OR description LIKE :queryString ")
+    fun getImageForTesting(queryString: String): List<ImageDetails>
 }
