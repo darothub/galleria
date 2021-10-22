@@ -50,7 +50,7 @@ class ImageRemoteMediator(
             val apiResponse = service.getImages(query = query, page = page, perPage = PER_PAGE)
 
             val mediaData = apiResponse.data
-            val endOfPaginationReached = page < 4
+            val endOfPaginationReached = mediaData.isEmpty()
             val imageDetails = mediaData.map {
                 ImageDetails(it.id.toLong(), it.assets.preview.url, it.description)
             }

@@ -28,7 +28,7 @@ class ImageViewModel @Inject constructor(
     /**
      * Stream of immutable states representative of the UI.
      */
-    val state: StateFlow<UiState>
+    lateinit var state: StateFlow<UiState>
 
     /**
      * Processor of side effects from the UI which in turn feedback into [state]
@@ -36,24 +36,19 @@ class ImageViewModel @Inject constructor(
     val accept: (UiAction) -> Unit
 
     init {
-        val initialQuery: String = savedStateHandle.get(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-        val lastQueryScrolled: String = savedStateHandle.get(LAST_QUERY_SCROLLED) ?: DEFAULT_QUERY
-        val actionStateFlow = MutableSharedFlow<UiAction>()
-        val searches = actionStateFlow
-            .filterIsInstance<UiAction.Search>()
-            .distinctUntilChanged()
+        val (lastQueryScrolled: String, actionStateFlow, searches) = getLastScrolledQuery()
 
-        val queriesScrolled = actionStateFlow
-            .filterIsInstance<UiAction.Scroll>()
-            .distinctUntilChanged()
-            // This is shared to keep the flow "hot" while caching the last query scrolled,
-            // otherwise each flatMapLatest invocation would lose the last query scrolled,
-            .shareIn(
-                scope = viewModelScope,
-                started = SharingStarted.Lazily,
-                replay = 1
-            )
-            .onStart { emit(UiAction.Scroll(currentQuery = lastQueryScrolled)) }
+        val queriesScrolled = queriesScrolled(actionStateFlow, lastQueryScrolled)
+        getState(searches, queriesScrolled)
+        accept = { action ->
+            viewModelScope.launch { actionStateFlow.emit(action) }
+        }
+    }
+
+    private fun getState(
+        searches: Flow<UiAction.Search>,
+        queriesScrolled: Flow<UiAction.Scroll>
+    ) {
         state = searches
             .flatMapLatest { search ->
                 combine(
@@ -66,7 +61,7 @@ class ImageViewModel @Inject constructor(
                     .distinctUntilChangedBy { it.second }
                     .map { (scroll, pagingData) ->
                         UiState(
-                            query = search.query ,
+                            query = search.query,
                             pagingData = pagingData,
                             lastQueryScrolled = scroll.currentQuery,
                             // If the search query matches the scroll query, the user has scrolled
@@ -79,11 +74,34 @@ class ImageViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
                 initialValue = UiState()
             )
-        accept = { action ->
-            viewModelScope.launch { actionStateFlow.emit(action) }
-        }
     }
 
+    private fun queriesScrolled(
+        actionStateFlow: MutableSharedFlow<UiAction>,
+        lastQueryScrolled: String
+    ): Flow<UiAction.Scroll> {
+        val queriesScrolled = actionStateFlow
+            .filterIsInstance<UiAction.Scroll>()
+            .distinctUntilChanged()
+            // This is shared to keep the flow "hot" while caching the last query scrolled,
+            // otherwise each flatMapLatest invocation would lose the last query scrolled,
+            .shareIn(
+                scope = viewModelScope,
+                started = SharingStarted.Lazily,
+                replay = 1
+            )
+            .onStart { emit(UiAction.Scroll(currentQuery = lastQueryScrolled)) }
+        return queriesScrolled
+    }
+
+    private fun getLastScrolledQuery(): Triple<String, MutableSharedFlow<UiAction>, Flow<UiAction.Search>> {
+        val lastQueryScrolled: String = savedStateHandle.get(LAST_QUERY_SCROLLED) ?: DEFAULT_QUERY
+        val actionStateFlow = MutableSharedFlow<UiAction>()
+        val searches = actionStateFlow
+            .filterIsInstance<UiAction.Search>()
+            .distinctUntilChanged()
+        return Triple(lastQueryScrolled, actionStateFlow, searches)
+    }
 
 
     fun searchImage(query: String): Flow<PagingData<UiModel.ImageItem>> =
