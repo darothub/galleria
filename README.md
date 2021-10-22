@@ -22,7 +22,6 @@
 
 ### Limitation
 - While search works well, its behaviour is yet to be fully tested
-- Continuous search request leads to `Too many requests` error from Shutterstock API
 - Unhandled network availability
 
 ### Design Architecture
