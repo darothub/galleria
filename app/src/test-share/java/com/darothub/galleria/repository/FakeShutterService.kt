@@ -2,13 +2,10 @@ package com.darothub.galleria.repository
 
 import com.darothub.galleria.api.*
 
-internal class FakeShutterService:ShutterImageService {
+class FakeShutterService:ShutterImageService {
+    var failureMsg = false
     companion object{
-        val fakeApiResponse =  listOf(
-            MediaData("1",Assets(preview = ThumbDetails(100L, "url.com", 100L)), "dog"),
-            MediaData("2",Assets(preview = ThumbDetails(100L, "url.com", 100L)), "cat"),
-            MediaData("3",Assets(preview = ThumbDetails(100L, "url.com", 100L)), "lion")
-        )
+        val fakeApiResponse =  mutableListOf<MediaData>()
     }
 
     override suspend fun getImages(query: String, page: Long, perPage: Int): ApiResponse {

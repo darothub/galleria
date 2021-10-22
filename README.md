@@ -21,7 +21,6 @@
 - Testing
 
 ### Limitation
-- While search works well, its behaviour is yet to be fully tested
 - Unhandled network availability
 
 ### Design Architecture
