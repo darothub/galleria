@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 @Entity(tableName = "images")
 data class ImageDetails(
     @PrimaryKey
-    @field:SerializedName("id") val id: Long,
+    @field:SerializedName("id") val id: String,
     @field:SerializedName("url") val url: String,
     @field:SerializedName("description") val description: String?
 )

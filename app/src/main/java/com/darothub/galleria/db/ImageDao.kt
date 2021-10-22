@@ -18,6 +18,7 @@ interface ImageDao {
             "url LIKE :queryString OR description LIKE :queryString ")
     fun getImages(queryString: String): PagingSource<Int, ImageDetails>
 
+
     @Query("DELETE FROM images")
     suspend fun clearImages()
 

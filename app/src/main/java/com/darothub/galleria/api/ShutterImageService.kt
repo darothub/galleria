@@ -7,7 +7,7 @@ interface ShutterImageService {
     @GET("search")
     suspend fun getImages(
         @Query("query") query:String,
-        @Query("page")page:Int,
+        @Query("page")page:Long,
         @Query("per_page")perPage:Int
     ): ApiResponse
 }
