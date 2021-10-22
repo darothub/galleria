@@ -1,4 +1,4 @@
-package com.darothub.galleria
+package com.darothub.galleria.repository
 
 import android.app.Application
 import android.content.Context

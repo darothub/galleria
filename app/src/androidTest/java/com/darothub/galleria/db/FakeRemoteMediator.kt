@@ -15,6 +15,11 @@ class FakeRemoteMediator : RemoteMediator<Int, ImageDetails>(){
         TODO("Not yet implemented")
     }
     companion object{
-        val fakeImageDetails = emptyList<ImageDetails>()
+        val fakeImageDetails = listOf<ImageDetails>(
+            ImageDetails("1", "url.com", "A nice dog"),
+            ImageDetails("2", "url.com", "A nice cat"),
+            ImageDetails("3", "cat.com", "A happy animal"),
+            ImageDetails("4", "url.com", "A lion sleeping")
+        )
     }
 }

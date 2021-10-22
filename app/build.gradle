@@ -28,7 +28,7 @@ android {
         versionName "1.0"
 
 //        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunner "com.darothub.galleria.HiltTestRunner"
+        testInstrumentationRunner "com.darothub.galleria.repository.HiltTestRunner"
     }
     externalNativeBuild {
         cmake {
@@ -49,6 +49,10 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    sourceSets {
+        androidTest.java.srcDirs += "src/test-share/java"
+        test.java.srcDirs += "src/test-share/java"
     }
 }
 
