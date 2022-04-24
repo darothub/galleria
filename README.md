@@ -1,4 +1,3 @@
-## Assignment Task
 
 ### Problem statement
 - User wants to be able to search for images
